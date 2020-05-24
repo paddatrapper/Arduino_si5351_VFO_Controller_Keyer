@@ -3,6 +3,7 @@ Arduino Nano script for homebrew multiband SSB/CW transceiver.
 EEPROM initialiser script
 */
 
+#include <Arduino.h>
 #include <Wire.h>
 #include <EEPROM.h>
 
@@ -41,16 +42,16 @@ void setup(){
 
  // initialise VFOSet array
   for(int n=0; n<NBR_VFOS; n++) VFOSet[n].active = 0;   // make sure all are inactive to start with 
-  VFOSet[0] = (VFOset_type){1,  1825000ULL, 1000};
-  VFOSet[1] = (VFOset_type){1,  3525000ULL,  100};
-  VFOSet[2] = (VFOset_type){1,  3625000ULL,  100};
-  VFOSet[3] = (VFOset_type){1,  7025000ULL,  100};
-  VFOSet[4] = (VFOset_type){1,  7090000ULL, 1000};
-  VFOSet[5] = (VFOset_type){1, 10105000ULL,  100};
-  VFOSet[6] = (VFOset_type){1, 14060000ULL,  100};
-  VFOSet[7] = (VFOset_type){1, 18068000ULL, 1000};
-  VFOSet[8] = (VFOset_type){1, 28480000ULL, 1000};
-  VFOSet[9] = (VFOset_type){1, 52100000ULL, 1000};
+  VFOSet[0] = (VFOset_type){1,  1825000ULL, 1000}; //  1.825 MHz
+  VFOSet[1] = (VFOset_type){1,  3525000ULL,  100}; //  3.525 MHz
+  VFOSet[2] = (VFOset_type){1,  3625000ULL,  100}; //  3.625 MHz
+  VFOSet[3] = (VFOset_type){1,  7025000ULL,  100}; //  7.025 MHz
+  VFOSet[4] = (VFOset_type){1,  7090000ULL, 1000}; //  7.090 MHz
+  VFOSet[5] = (VFOset_type){1, 10105000ULL,  100}; // 10.105 MHz
+  VFOSet[6] = (VFOset_type){1, 14060000ULL,  100}; // 14.060 MHz
+  VFOSet[7] = (VFOset_type){1, 18068000ULL, 1000}; // 18.068 MHz
+  VFOSet[8] = (VFOset_type){1, 28480000ULL, 1000}; // 28.480 MHz
+  VFOSet[9] = (VFOset_type){1, 52100000ULL, 1000}; // 52.100 MHz
 
   // write the current band index (into VFOSet[]) into EEPROM byte 0
   byte b = 3;
