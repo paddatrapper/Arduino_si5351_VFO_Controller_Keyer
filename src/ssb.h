@@ -19,8 +19,7 @@
 #include "utils.h"
 
 void init_ssb(Si5351& si5351, volatile VFO_type& vfo);
-void step_ssb(VFO_type& vfo);
+void step_ssb(volatile VFO_type& vfo);
 byte check_ptt_pushbuttom();
 
 #endif
-

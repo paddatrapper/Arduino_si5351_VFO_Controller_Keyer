@@ -57,32 +57,32 @@
 #define PADDLE_L_PUSHBTTN 12 // Left paddle
 
 // Arduino Nano analogue pins
-#define SWITCH_BANK       A0 // front panel push buttons
-//                        A1 // paddle on analog pin 1
-#define PIN_PUSHBTTN_REAR A2 // keyer memory pushbuttons on analog pin 2
-#define PIN_KEYER_SPEED   A3 // speed potentiometer wiper
-#define PIN_S_METER       A3 // s-meter TBA
-//                        A4    SDA
-//                        A5    SCL
-#define PIN_PWR_METER     A6 // analogue pin for relative RF sensing circuit
+#define PIN_BAND_PRESET  A0 // front panel push buttons
+//                       A1 // paddle on analog pin 1
+#define PIN_KEYER_MEMORY A2 // keyer memory pushbuttons on analog pin 2
+#define PIN_KEYER_SPEED  A3 // speed potentiometer wiper
+#define PIN_S_METER      A3 // s-meter TBA
+//                       A4    SDA
+//                       A5    SCL
+#define PIN_PWR_METER    A6 // analogue pin for relative RF sensing circuit
 
 // frequency ranges for automatic band pass and low pass filter switching
-#define FILTER_80_LB  2501000ull  // Filter set lower bound (MHz)
-#define FILTER_80_UB  4000000ull  // Filter set upper bound (MHz)
+#define FILTER_80_LB  2501000ull  // Filter set lower bound ( 2.501 MHz)
+#define FILTER_80_UB  4000000ull  // Filter set upper bound ( 4.000 MHz)
 
-#define FILTER_40_LB  6501000ull  // Filter set lower bound (MHz)
-#define FILTER_40_UB  8000000ull  // Filter set upper bound (MHz)
+#define FILTER_40_LB  6501000ull  // Filter set lower bound ( 6.501 MHz)
+#define FILTER_40_UB  8000000ull  // Filter set upper bound ( 8.000 MHz)
 
-#define FILTER_30_LB  8001000ull  // Filter set lower bound (MHz)
-#define FILTER_30_UB 12000000ull  // Filter set upper bound (MHz)
+#define FILTER_30_LB  8001000ull  // Filter set lower bound ( 8.001 MHz)
+#define FILTER_30_UB 12000000ull  // Filter set upper bound (12.000 MHz)
 
-#define FILTER_20_LB 12001000ull  // Filter set lower bound (MHz)
-#define FILTER_20_UB 16000000ull  // Filter set upper bound (MHz)
+#define FILTER_20_LB 12001000ull  // Filter set lower bound (12.001 MHz)
+#define FILTER_20_UB 16000000ull  // Filter set upper bound (16.000 MHz)
 
 // i2c devices and addresses:
 // si5351  x60
-// filter selector PCF8574 x20 .. x38
-#define I2C_DEMUX   0x20         // I2C address of the filter PCF8574 in this rig
+// filter selector PCF8574
+#define I2C_DEMUX   0x74         // I2C address of the filter PCF8574
 
 // CW
 #define PIN_TONE_OUT       6  // digital pin with keyed audio tone on it
@@ -92,7 +92,9 @@
 #define PADDLE_R           2  // value representing paddle right (dash)
 #define PADDLE_BOTH        3  // value representing both paddles (alternating)
 
-#define CW_DASH_LEN        5  // length of dash (in dots)
-#define BREAK_IN_DELAY   800  // break-in hang time (mS)
+#define CW_DASH_LEN        3  // length of dash (in dots)
+#define BREAK_IN_DELAY   800  // break-in hang time (ms)
 #define SERIAL_LINE_WIDTH 80  // number of morse chars on Serial after which we newline
+
+#define PUSHBTTN_DEBOUNCE_DELAY 25 // length of debounce delay (ms)
 #endif

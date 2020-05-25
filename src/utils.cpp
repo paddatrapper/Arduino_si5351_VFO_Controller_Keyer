@@ -20,17 +20,28 @@
 
 int read_analogue_pin(byte p) {
 // Take an averaged reading of analogue pin 'p'
-  int i, val=0, nbr_reads=2;
-  for (i=0; i<nbr_reads; i++) {
+  int val=0, nbr_reads=2;
+  for (int i = 0; i < nbr_reads; i++) {
     val += analogRead(p);
     delay(1);
   }
-  return val/nbr_reads;
+  return val / nbr_reads;
+}
+
+byte read_push_button(byte p, byte active) {
+    // Debounce digital push button read
+    byte first_read = digitalRead(p);
+    delay(PUSHBTTN_DEBOUNCE_DELAY);
+    byte second_read = digitalRead(p);
+    if (first_read == second_read and first_read == active) {
+        return 0x1;
+    }
+    return 0x0;
 }
 
 void set_filters(unsigned long frequency, PCF8574& filterPCF) {
     Serial.println("Entering set_filters");
-    byte filter_line=-1;
+    int filter_line = -1;
 
     if ((frequency >= FILTER_20_LB) && (frequency <= FILTER_20_UB)) {
         filter_line = 0;
@@ -45,8 +56,7 @@ void set_filters(unsigned long frequency, PCF8574& filterPCF) {
     if (filter_line > -1) {
         Serial.print("Enabling filter line: ");
         Serial.println(filter_line);
-        for (int i = 0; i < 8; ++i) filterPCF.write(i, 0); // Disable all filters
-        delay(50); // Let I2C communication complete;
-        filterPCF.write(filter_line, 1); // Enable active filter
+        uint8_t mask = 0x00 | 0x01 << filter_line;
+        filterPCF.write8(mask);
     }
 }

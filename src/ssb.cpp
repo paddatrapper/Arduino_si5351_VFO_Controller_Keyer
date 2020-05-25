@@ -16,16 +16,24 @@
 #include "ssb.h"
 #include <si5351.h>
 #include "defs.h"
+#include "display.h"
+#include "state.h"
+#include "utils.h"
 
 void init_ssb(Si5351& si5351, volatile VFO_type& vfo) {
+    Serial.println("Entering SSB transmit state");
     digitalWrite(MUTE_LINE, 1); // Mute the receiver
+    digitalWrite(TRANSMIT_LINE, 1); // enable transmit
+    delay(TX_SSB_MUTE_DELAY);
+    digitalWrite(TX_SSB_MUTE_LINE, 1); // un-mute the mic amp
     delay(1);
+    refresh_display(0, vfo, STATE_Ssb);
 }
 
-void step_ssb(VFO_type& vfo) {
-
+void step_ssb(volatile VFO_type& vfo) {
+    refresh_display(0, vfo, STATE_Ssb);
 }
 
 byte check_ptt_pushbuttom() {
-    return !digitalRead(PTT_SENSE);
+    return read_push_button(PTT_SENSE, LOW);
 }

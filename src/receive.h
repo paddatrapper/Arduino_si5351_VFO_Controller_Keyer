@@ -19,6 +19,8 @@
 #include "utils.h"
 
 void init_receive(Si5351& si5351, volatile VFO_type& vfo);
-void step_receive(volatile VFO_type& vfo);
+void step_receive(Si5351& si5351, volatile VFO_type& vfo);
+byte check_band_pushbutton();
+void set_oscillator(Si5351& si5351, volatile VFO_type& vfo);
 
 #endif

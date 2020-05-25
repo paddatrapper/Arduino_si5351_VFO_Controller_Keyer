@@ -26,5 +26,6 @@ typedef struct {
 } VFO_type;
 
 int read_analogue_pin(byte p);
+byte read_push_button(byte p, byte active);
 void set_filters(unsigned long frequency, PCF8574& filterPCF);
 #endif

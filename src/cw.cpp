@@ -70,10 +70,12 @@ String morse_msg[] = {"CQ ZS1KJ K", "DE ZS1KJ" };
 //String morse_msg[] = {"1", "2" };  // for testing
 
 unsigned int dot_dash_counter = 0; // total nbr CW chars sent since power-up
-byte dot_length_ms = 55; // the CW keyer speed, lower is faster, 60 is 10 w.p.m.
+byte dot_length_ms = 100; // the CW keyer speed, lower is faster, 60 is 10 w.p.m.
 
 void init_cw(volatile VFO_type& vfo) {
     Serial.println("Entering CW transmit state");
+    digitalWrite(MUTE_LINE, 1); // Mute the receiver
+    digitalWrite(TRANSMIT_LINE, 1); // enable transmit
     digitalWrite(CO_SUPPLY, 0);  // power down the carrier oscillator buffer
     refresh_display(0, vfo, STATE_Cw);
 }
@@ -158,14 +160,12 @@ byte check_keyer_pushbutton() {
     // Reads the keyer pushbuttons and returns the button number as a byte;
     // 0 if not pressed
     byte b = 0;
-    int z = read_analogue_pin(PIN_PUSHBTTN_REAR); // read the analog pin
-
-    // Serial.print("Kyr pshbtn z="); Serial.println(z);
+    int z = read_analogue_pin(PIN_KEYER_MEMORY); // read the analog pin
 
     // reading is from the rear keyer pushbuttons
     // open (USB power: 840) (LiFePO+7812: 1023)
-    if (z > 300 && z < 990) b = 1;       // L    (USB power: 418) (LiFePO+7812: 712)
-    else if (z > 10 && z <= 300) b = 2;  // R    (USB power:  74) (LiFePO+7812: 122)
+    if (z > 450 && z < 990) b = 1;       // L    (USB power: 727) (LiFePO+7812: 712)
+    else if (z > 10 && z <= 450) b = 2;  // R    (USB power: 318) (LiFePO+7812: 122)
     // both: (USB power:  66) (LiFePO+7812: 112)
 
     return b;
@@ -174,8 +174,8 @@ byte check_keyer_pushbutton() {
 byte check_paddle() {
     // Reads the paddle, returns the paddle number as a byte; 0 if not pressed
     // 1 if left is pressed, 2 if right is pressed and 3 if both are pressed
-    byte l = !digitalRead(PADDLE_L_PUSHBTTN);
-    byte r = !digitalRead(PADDLE_R_PUSHBTTN);
+    byte l = read_push_button(PADDLE_L_PUSHBTTN, LOW);
+    byte r = read_push_button(PADDLE_R_PUSHBTTN, LOW);
     return r<<1 | l;
 };
 

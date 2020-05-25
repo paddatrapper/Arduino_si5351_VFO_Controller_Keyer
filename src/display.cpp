@@ -75,13 +75,13 @@ void refresh_display(int pwr_val, const volatile VFO_type& vfo, const State& sta
             if (vfo.radix==10)    oled.print("10Hz  ");
             break;
         case STATE_Cw:
-            oled.print("CW");
+            oled.print("CW    ");
             break;
         case STATE_Tune:
-            oled.print("Tune");
+            oled.print("Tune  ");
             break;
         case STATE_Ssb:
-            oled.print("Tx");
+            oled.print("Tx    ");
             break;
     }
 
@@ -107,7 +107,7 @@ void refresh_display(int pwr_val, const volatile VFO_type& vfo, const State& sta
 
         s = map(val, 0, 550, 8, 1);  // map s-meter analogue reading to s-scale
 
-        // now add some random movement (make the meter flicker up by 1 S-point to animate it!)
+        // make the meter flicker up by 1 S-point to animate it
         s = s + 1 + rand()%2;
 
         //    Serial.print(" s=");  Serial.print(s);  Serial.print(" s2=");  Serial.println(s2);
